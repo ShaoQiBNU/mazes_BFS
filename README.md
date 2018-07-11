@@ -33,7 +33,7 @@
 # 二. 解决方法
 
 > 因为题意是使用最少的步数走出迷宫，所要可以使用广度优先遍历的方式，每处理完一层说明走了一步，最先到达出口使用的步数最少。根据输入的例子，迷宫的走法如图1所示。 
-![image](https://github.com/872822645/danxuankuangDemo/blob/master/1.jpg)
+![image](https://github.com/ShaoQiBNU/mazes_BFS/blob/master/images/1.png)
 
 > 代码如下：
 
