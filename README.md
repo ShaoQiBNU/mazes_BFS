@@ -114,10 +114,10 @@ if __name__ == '__main__':
 
 > 500年前，nowcoder是我国最卓越的剑客。他英俊潇洒，而且机智过人^_^。 突然有一天，nowcoder 心爱的公主被魔王困在了一个巨大的迷宫中。nowcoder 听说这个消息已经是两天以后了，他知道公主在迷宫中还能坚持T天，他急忙赶到迷宫，开始到处寻找公主的下落。 时间一点一点的过去，nowcoder 还是无法找到公主。最后当他找到公主的时候，美丽的公主已经死了。从此nowcoder 郁郁寡欢，茶饭不思，一年后追随公主而去了。T_T 500年后的今天，nowcoder 托梦给你，希望你帮他判断一下当年他是否有机会在给定的时间内找到公主。 他会为你提供迷宫的地图以及所剩的时间T。请你判断他是否能救出心爱的公主。
 
-数据以三个整数N,M,T(00)开头，分别代表迷宫的长和高，以及公主能坚持的天数。紧接着有M行，N列字符，由"."，"*"，"P"，"S"组成。其中
+> 数据以三个整数N,M,T(00)开头，分别代表迷宫的长和高，以及公主能坚持的天数。紧接着有M行，N列字符，由"."，"*"，"P"，"S"组成。其中
 "." 代表能够行走的空地。"*" 代表墙壁，redraiment不能从此通过。"P" 是公主所在的位置。"S" 是redraiment的起始位置。每个时间段里redraiment只能选择“上、下、左、右”任意一方向走一步。输入以0 0 0结束。如果能在规定时间内救出公主输出“YES”，否则输出“NO”。
 
-例如：
+> 例如：
 ```python
 4 4 10
 ....
@@ -126,3 +126,105 @@ if __name__ == '__main__':
 S**P
 0 0 0
 结果为：YES
+
+> 采用广度优先遍历，从起始点一圈一圈遍历，最先遍历的位置就是最少用的时间，每一圈消耗一个单位的时间，如图所示
+
+如图1所示。 
+![image](https://github.com/ShaoQiBNU/mazes_BFS/blob/master/images/2.png)
+
+> 代码如下：
+
+```python
+# -*- coding: utf-8 -*-
+import numpy as np 
+
+############ bfs ###############
+def bfs(map, n, m, t):
+    
+    #### 寻找起点和终点 #####
+    for i in range(0,m):
+        for j in range(0,n):
+            if map[i][j]==2:
+                start=(i,j)
+            if map[i][j]==3:
+                end=(i,j)
+
+    #### 上下左右四个方向的增量 #####
+    dx=[1,-1,0,0]
+    dy=[0,0,1,-1]
+
+    #### 当前节点列表 #####
+    nodes_cur=[]
+    nodes_cur.append(start)
+    
+    #### 下一层节点列表 #####
+    nodes_next=[]
+
+    #### 节点访问表——记录节点是否被访问 #####
+    node_visit=np.array([[0]*n]*m)
+    node_visit[start[0]][start[1]]=1
+
+    #### bfs过程 #####
+    while len(nodes_cur)!=0:
+
+        #### 上下左右四个方向遍历 #####
+        for i in range(0,4):
+
+            #### 从当前层节点列表输出一个节点 #####
+            node=nodes_cur[0]
+
+            #### 上下左右四个方向遍历 #####
+            x=node[0]+dx[i]
+            y=node[1]+dy[i]
+
+
+            #### 判断是否到达终点 #####
+            if x==end[0] and y==end[1]:
+               return 'yes'
+
+            #### 判断节点是否符合条件 #####
+            if x>=0 and x<m and y>=0 and y<n and node_visit[x][y]==0 and map[x][y]==1:
+
+                #### 将节点压入下一层的节点列表nodes_next #####
+               nodes_next.append((x,y))
+
+               #### 该节点标记为已经访问过 #####
+               node_visit[x][y]=1
+
+        #### 从节点列表移除当前层的节点 #####
+        del(nodes_cur[0])
+        
+        #### 当前层处理完 #####
+        if len(nodes_cur)==0:
+            
+            #### 剩下的时间-1 #####
+            t=t-1
+            
+            #### 时间用完 #####
+            if t<0:
+                return 'no'
+            
+            #### 处理下一层 #####
+            else:
+                nodes_cur=nodes_next.copy()
+                nodes_next=[]
+
+    #### 如果没有路径，则表明迷宫无法走出 #####
+    return 'no'
+
+
+if __name__ == '__main__':
+    
+    #### 迷宫 #####
+    map=np.array([[1,1,1,1],[1,1,1,1],[1,1,1,1],[2,0,0,3]])
+    
+    #### 列数，行数，天数 #####
+    n=4
+    m=4
+    t=10
+    
+    #### bfs #####
+    res=bfs(map, n, m, t)
+    print(res)
+
+```
