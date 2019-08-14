@@ -57,12 +57,12 @@ def bfs(map):
 
     #### bfs过程 #####
     while len(nodes)!=0:
+    
+        #### 从节点列表输出一个节点 #####
+        node=nodes[0]
 
         #### 上下左右四个方向遍历 #####
-        for i in range(0,4):
-
-            #### 从节点列表输出一个节点 #####
-            node=nodes[0]
+        for i in range(0,4): 
 
             #### 上下左右四个方向遍历 #####
             x=node[0]+dx[i]
@@ -78,7 +78,7 @@ def bfs(map):
             #### 判断节点是否符合条件 #####
             if x>=1 and x<=9 and y>=1 and y<=9 and node_visit[x][y]==0 and map[x][y]==1:
 
-                #### 将节点压入节点列表nodes，说明进入下一层，step+1 #####
+               #### 将节点压入节点列表nodes，说明进入下一层，step+1 #####
                nodes.append((x,y,step+1))
 
                #### 该节点标记为已经访问过 #####
@@ -164,12 +164,12 @@ def bfs(map, n, m, t):
 
     #### bfs过程 #####
     while len(nodes_cur)!=0:
+    
+        #### 从当前层节点列表输出一个节点 #####
+        node=nodes_cur[0]
 
         #### 上下左右四个方向遍历 #####
         for i in range(0,4):
-
-            #### 从当前层节点列表输出一个节点 #####
-            node=nodes_cur[0]
 
             #### 上下左右四个方向遍历 #####
             x=node[0]+dx[i]
@@ -183,7 +183,7 @@ def bfs(map, n, m, t):
             #### 判断节点是否符合条件 #####
             if x>=0 and x<m and y>=0 and y<n and node_visit[x][y]==0 and map[x][y]==1:
 
-                #### 将节点压入下一层的节点列表nodes_next #####
+               #### 将节点压入下一层的节点列表nodes_next #####
                nodes_next.append((x,y))
 
                #### 该节点标记为已经访问过 #####
