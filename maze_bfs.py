@@ -17,13 +17,13 @@ def bfs(map):
 
     #### bfs过程 #####
     while len(nodes)!=0:
+        
+        #### 从节点列表输出一个节点 #####
+            node=nodes[0]
 
         #### 上下左右四个方向遍历 #####
         for i in range(0,4):
-
-            #### 从节点列表输出一个节点 #####
-            node=nodes[0]
-
+            
             #### 上下左右四个方向遍历 #####
             x=node[0]+dx[i]
             y=node[1]+dy[i]
@@ -38,7 +38,7 @@ def bfs(map):
             #### 判断节点是否符合条件 #####
             if x>=1 and x<=9 and y>=1 and y<=9 and node_visit[x][y]==0 and map[x][y]==1:
 
-                #### 将节点压入节点列表nodes，说明进入下一层，step+1 #####
+               #### 将节点压入节点列表nodes，说明进入下一层，step+1 #####
                nodes.append((x,y,step+1))
 
                #### 该节点标记为已经访问过 #####
