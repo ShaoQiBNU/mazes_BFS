@@ -29,12 +29,12 @@ def bfs(map, n, m, t):
 
     #### bfs过程 #####
     while len(nodes_cur)!=0:
+        
+        #### 从当前层节点列表输出一个节点 #####
+        node=nodes_cur[0]
 
         #### 上下左右四个方向遍历 #####
         for i in range(0,4):
-
-            #### 从当前层节点列表输出一个节点 #####
-            node=nodes_cur[0]
 
             #### 上下左右四个方向遍历 #####
             x=node[0]+dx[i]
@@ -48,7 +48,7 @@ def bfs(map, n, m, t):
             #### 判断节点是否符合条件 #####
             if x>=0 and x<m and y>=0 and y<n and node_visit[x][y]==0 and map[x][y]==1:
 
-                #### 将节点压入下一层的节点列表nodes_next #####
+               #### 将节点压入下一层的节点列表nodes_next #####
                nodes_next.append((x,y))
 
                #### 该节点标记为已经访问过 #####
